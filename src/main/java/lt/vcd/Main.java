@@ -4,71 +4,61 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        if (!scanner.hasNextInt()) return;
-        int subjects = scanner.nextInt();
-        int students = scanner.nextInt();
-
-        double[] averages = new double[students];
-        boolean[] hasLowGrade = new boolean[students];
-        double totalSum = 0;
-        double maxAverage = -1;
-
-        for (int i = 0; i < students; i++) {
-            double studentSum = 0;
-            for (int j = 0; j < subjects; j++) {
-                int grade = scanner.nextInt();
-                studentSum += grade;
-                if (grade < 5) {
-                    hasLowGrade[i] = true;
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return;
+        int d = sc.nextInt();
+        int st = sc.nextInt();
+        
+        double[] vidurkiai = new double[st];
+        boolean[] blogi = new boolean[st];
+        double bendraSuma = 0;
+        double maxVid = -1;
+        
+        for (int i = 0; i < st; i++) {
+            double suma = 0;
+            for (int j = 0; j < d; j++) {
+                int paz = sc.nextInt();
+                suma += paz;
+                if (paz < 5) {
+                    blogi[i] = true;
                 }
             }
-            averages[i] = studentSum / subjects;
-            totalSum += averages[i];
-
-            if (averages[i] > maxAverage) {
-                maxAverage = averages[i];
+            vidurkiai[i] = suma / d;
+            bendraSuma += vidurkiai[i];
+            if (vidurkiai[i] > maxVid) {
+                maxVid = vidurkiai[i];
             }
         }
-
-
+        
         System.out.println("Student averages:");
-        for (int i = 0; i < students; i++) {
-            if (averages[i] == (int) averages[i]) {
-                System.out.println((int) averages[i]);
+        for (int i = 0; i < st; i++) {
+            if (vidurkiai[i] == (int) vidurkiai[i]) {
+                System.out.println((int) vidurkiai[i]);
             } else {
-                System.out.println(averages[i]);
+                System.out.println(vidurkiai[i]);
             }
         }
-
-
+        
         System.out.println("\nGroup average:");
-        double groupAvg = totalSum / students;
-        System.out.println(groupAvg);
-
-
+        System.out.println(bendraSuma / st);
+        
         System.out.println("\nHighest-performing student:");
-        for (int i = 0; i < students; i++) {
-            
-            if (Math.abs(averages[i] - maxAverage) < 1e-9) {
+        for (int i = 0; i < st; i++) {
+            if (Math.abs(vidurkiai[i] - maxVid) < 1e-9) {
                 System.out.println(i + 1);
             }
         }
-
-
+        
         System.out.println("\nStudents with at least one grade below 5:");
-        boolean anyLow = false;
-        for (int i = 0; i < students; i++) {
-            if (hasLowGrade[i]) {
+        boolean yra = false;
+        for (int i = 0; i < st; i++) {
+            if (blogi[i]) {
                 System.out.println(i + 1);
-                anyLow = true;
+                yra = true;
             }
         }
-        if (!anyLow) {
+        if (!yra) {
             System.out.println("None");
         }
-
-        scanner.close();
     }
 }
